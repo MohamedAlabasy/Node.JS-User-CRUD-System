@@ -21,9 +21,7 @@ export const login = async (request: Request, response: Response, next: NextFunc
         // add token
         const accessToken = createToken(userData)
 
-        // add token to db
         response.status(200).json(returnUserData(userData, accessToken))
-
     } catch (error: any) {
         console.error("\x1b[31m", 'auth-controller => login : ' + error.message, "\x1b[0m");
         next(error);
@@ -45,12 +43,12 @@ export const register = async (request: Request, response: Response, next: NextF
             age: request.body.age,
             country: request.body.country,
             mobile: request.body.mobile,
-            is_admin: false,
+            is_admin: false
         })
         const userData = await user.save();
+        if (!userData) throw new HttpError('can\'t add user', 500);
 
-        response.status(200).json(returnUserData(userData))
-
+        response.status(200).json(returnUserData(userData));
     } catch (error: any) {
         if (error.code === 11000) error.message = 'this email already used'
         console.error("\x1b[31m", 'auth-controller => register : ' + error.message, "\x1b[0m");
@@ -101,10 +99,10 @@ export const updateUserToBeAdmin = async (request: Request, response: Response, 
         if (!user) throw new HttpError(`No user with this id = ${request.params.id}`, 404)
 
         const UpdateUserData = await User.findByIdAndUpdate(request.params.id, { is_admin: request.body.is_admin }, { new: true }).select(unreturnedData);
-        if (!UpdateUserData) throw new HttpError('can\'t update user', 500)
+        if (!UpdateUserData) throw new HttpError('can\'t update user to be an admin', 500)
 
         // add token
-        const accessToken = createToken(UpdateUserData)
+        const accessToken = createToken(UpdateUserData);
 
         response.status(200).json(returnUserData(UpdateUserData, accessToken));
     } catch (error: any) {
