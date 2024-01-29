@@ -1,14 +1,21 @@
 import { Router } from 'express';
 import { body, check, param } from 'express-validator';
-import { login, register } from '../../controllers/authController';
+import { login, register, getUserByID } from '../../controllers/authController';
+import checkTokens from '../../utilities/checkTokens';
 
 const auth: Router = Router();
+auth.get('/:id', checkTokens, checkID(), getUserByID)
 auth.post('/login', checkEmail(), checkPassword(), login);
 auth.post('/register', checkEmail(), checkPassword(), checkRegisterData(), register);
 
 // #=======================================================================================#
 // #			                         check function                                    #
 // #=======================================================================================#
+function checkID() {
+    return [
+        param("id").exists().withMessage('you must enter id').isMongoId().withMessage('invalid Comment id')
+    ]
+}
 
 function checkEmail() {
     return [

@@ -60,6 +60,23 @@ export const register = async (request: Request, response: Response, next: NextF
     }
 }
 
+
+// #=======================================================================================#
+// #			                       get User by id                                      #
+// #=======================================================================================#
+export const getUserByID = async (request: Request, response: Response, next: NextFunction) => {
+    try {
+        validateRequest(request)
+        const userData = await User.findById(request.params.id).select(unreturnedData)
+        if (!userData) throw new HttpError(`No user with this id = ${request.params._id}`, 404)
+
+        response.status(200).json(returnUserData(userData));
+    } catch (error: any) {
+        console.error("\x1b[31m", 'auth-controller => getUserDataByID : ' + error.message, "\x1b[0m");
+        next(error);
+    }
+}
+
 // #=======================================================================================#
 // #			                          general fun                                      #
 // #=======================================================================================#
@@ -69,7 +86,7 @@ function hashPassword(password: string): string {
 
 function returnUserData(userData: any, token?: string) {
     return {
-        _id: userData._id,
+        id: userData._id,
         name: userData.name,
         email: userData.email,
         age: userData.age,
