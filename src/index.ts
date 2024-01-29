@@ -3,6 +3,7 @@ import 'dotenv/config'
 import body_parser from 'body-parser';
 import cors from 'cors';
 
+import morganMiddleware from './middleware/morganMiddleware';
 import notFoundMiddleware from './middleware/notFoundMiddleware';
 
 import routes from './routes/routes';
@@ -20,7 +21,7 @@ app.use(cors());
 // #=======================================================================================#
 // #			                            router                                         #
 // #=======================================================================================#
-app.use('', routes);
+app.use('', morganMiddleware, routes);
 // #=======================================================================================#
 // #			                      not Found middleware                                 #
 // #=======================================================================================#
