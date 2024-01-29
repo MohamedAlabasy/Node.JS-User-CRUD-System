@@ -30,6 +30,7 @@ export const login = async (request: Request, response: Response, next: NextFunc
     }
 }
 
+
 // #=======================================================================================#
 // #			                            Register                                       #
 // #=======================================================================================#
@@ -89,12 +90,38 @@ export const getAllUser = async (request: Request, response: Response, next: Nex
 }
 
 // #=======================================================================================#
-// #			                        update Users                                       #
+// #			                    update user to be an admin                             #
+// #=======================================================================================#
+export const updateUserToBeAdmin = async (request: Request, response: Response, next: NextFunction) => {
+    try {
+        validateRequest(request)
+        if ((request as any).user.is_admin !== true) throw new HttpError('you must be an admin', 403)
+
+        const user = await User.findById(request.params.id).select(unreturnedData)
+        if (!user) throw new HttpError(`No user with this id = ${request.params.id}`, 404)
+
+        const UpdateUserData = await User.findByIdAndUpdate(request.params.id, { is_admin: request.body.is_admin }, { new: true }).select(unreturnedData);
+        if (!UpdateUserData) throw new HttpError('can\'t update user', 500)
+
+        // add token
+        const accessToken = createToken(UpdateUserData)
+
+        response.status(200).json(returnUserData(UpdateUserData, accessToken));
+    } catch (error: any) {
+        console.error("\x1b[31m", 'auth-controller => updateUserToBeAdmin : ' + error.message, "\x1b[0m");
+        next(error);
+    }
+}
+
+// #=======================================================================================#
+// #			                        update User                                        #
 // #=======================================================================================#
 export const updateUser = async (request: Request, response: Response, next: NextFunction) => {
     try {
         validateRequest(request)
-        if ((request as any).user.id !== request.params.id) throw new HttpError('you can\'t update this user data', 403)
+        if ((request as any).user.is_admin !== true) {
+            if ((request as any).user.id !== request.params.id) throw new HttpError('you can\'t update this user data', 403)
+        }
 
         const user = await User.findById(request.params.id).select(unreturnedData)
         if (!user) throw new HttpError(`No user with this id = ${request.params.id}`, 404)
@@ -129,6 +156,8 @@ export const updateUser = async (request: Request, response: Response, next: Nex
 export const deleteUser = async (request: Request, response: Response, next: NextFunction) => {
     try {
         validateRequest(request)
+        if ((request as any).user.is_admin !== true) throw new HttpError('only admin can delete user', 403)
+
         const userData = await User.findByIdAndDelete(request.params.id).select(unreturnedData);
         if (!userData) throw new HttpError(`No user with this id = ${request.params.id}`, 404)
 
@@ -160,6 +189,7 @@ function returnUserData(userData: any, token?: string) {
         age: userData.age,
         country: userData.country,
         mobile: userData.mobile,
+        is_admin: userData.is_admin,
         token
     }
 }

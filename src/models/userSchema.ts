@@ -7,7 +7,7 @@ const schema = new mongoose.Schema({
     age: { type: Number, required: true, trim: true },
     country: { type: String, required: true, trim: true },
     mobile: { type: String, required: true, trim: true },
-    is_admin: { type: Boolean, select: false, default: false, trim: true },
+    is_admin: { type: Boolean, default: false, trim: true },
 }, { timestamps: true });
 
 export default mongoose.model('users', schema);

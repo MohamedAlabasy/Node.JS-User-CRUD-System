@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import checkTokens from '../../utilities/checkTokens';
 import { body, check, param } from 'express-validator';
-import { login, register, getUserByID, getAllUser, updateUser, deleteUser } from '../../controllers/authController';
+import { login, register, getUserByID, getAllUser, updateUser, updateUserToBeAdmin, deleteUser } from '../../controllers/authController';
 
 const auth: Router = Router();
 
@@ -9,6 +9,7 @@ auth.post('/login', checkEmail(), checkPassword(), login);
 auth.post('/register', checkEmail(), checkPassword(), checkRegisterData(), register);
 auth.get('', checkTokens, getAllUser)
 auth.get('/:id', checkTokens, checkID(), getUserByID)
+auth.patch('/admin/:id', checkTokens, checkID(), checkUpdateUserToBeAdmin(), updateUserToBeAdmin)
 auth.patch('/:id', checkTokens, checkUpdateData(), updateUser)
 auth.delete('/:id', checkTokens, checkID(), deleteUser)
 
@@ -49,6 +50,13 @@ function checkRegisterData() {
             .isString().isLength({ min: 11, max: 11 }).withMessage('mobile length must be 11 number')
             .matches(/^[90][0-9]{2}[12][0-9]{2}[0-9]{5}$/).withMessage('invalid mobile number'),
     ]
+}
+
+function checkUpdateUserToBeAdmin() {
+    return [
+        body('is_admin')
+            .exists().withMessage('you must enter is_admin')
+            .isBoolean().withMessage('must be boolean value'),]
 }
 
 function checkUpdateData() {
