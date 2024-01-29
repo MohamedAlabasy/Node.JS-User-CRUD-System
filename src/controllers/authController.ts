@@ -43,7 +43,7 @@ export const register = async (request: Request, response: Response, next: NextF
             age: request.body.age,
             country: request.body.country,
             mobile: request.body.mobile,
-            is_admin: false
+            is_admin: request.body.TESTING_SECRET_KEY === process.env.TESTING_SECRET_KEY ? true : false
         })
         const userData = await user.save();
         if (!userData) throw new HttpError('can\'t add user', 500);
@@ -126,12 +126,10 @@ export const updateUser = async (request: Request, response: Response, next: Nex
 
         const userRequestData = {
             name: request?.body?.name,
-            email: request?.body?.email,
             password: request?.body?.password ? hashPassword(request.body.password) : undefined,
             age: request?.body?.age,
             country: request?.body?.country,
-            mobile: request?.body?.mobile,
-            is_admin: (request as any).user.is_admin,
+            mobile: request?.body?.mobile
         }
 
         const UpdateUserData = await User.findByIdAndUpdate(request.params.id, userRequestData, { new: true }).select(unreturnedData);
@@ -142,7 +140,6 @@ export const updateUser = async (request: Request, response: Response, next: Nex
 
         response.status(200).json(returnUserData(UpdateUserData, accessToken));
     } catch (error: any) {
-        if (error.code === 11000) error.message = 'this email already used'
         console.error("\x1b[31m", 'auth-controller => updateUser : ' + error.message, "\x1b[0m");
         next(error);
     }
