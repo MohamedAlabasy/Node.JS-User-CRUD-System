@@ -78,6 +78,24 @@ export const getUserByID = async (request: Request, response: Response, next: Ne
 }
 
 // #=======================================================================================#
+// #			                       get All Users                                       #
+// #=======================================================================================#
+export const getAllUser = async (request: Request, response: Response, next: NextFunction) => {
+    try {
+        validateRequest(request)
+        const userData = await User.find({}).select(unreturnedData);
+        if (userData.length > 0) {
+            response.status(200).json(returnAllUserData(userData));
+        }
+
+        response.status(200).json(returnUserData(userData));
+    } catch (error: any) {
+        console.error("\x1b[31m", 'auth-controller => getAllUser : ' + error.message, "\x1b[0m");
+        next(error);
+    }
+}
+
+// #=======================================================================================#
 // #			                          general fun                                      #
 // #=======================================================================================#
 function hashPassword(password: string): string {
@@ -94,4 +112,8 @@ function returnUserData(userData: any, token?: string) {
         mobile: userData.mobile,
         token
     }
+}
+
+function returnAllUserData(usersData: any[]) {
+    return usersData.length > 0 ? usersData.map(user => returnUserData(user)) : []
 }
