@@ -68,7 +68,7 @@ export const getUserByID = async (request: Request, response: Response, next: Ne
     try {
         validateRequest(request)
         const userData = await User.findById(request.params.id).select(unreturnedData)
-        if (!userData) throw new HttpError(`No user with this id = ${request.params._id}`, 404)
+        if (!userData) throw new HttpError(`No user with this id = ${request.params.id}`, 404)
 
         response.status(200).json(returnUserData(userData));
     } catch (error: any) {
@@ -84,11 +84,23 @@ export const getAllUser = async (request: Request, response: Response, next: Nex
     try {
         validateRequest(request)
         const userData = await User.find({}).select(unreturnedData);
-        if (userData.length > 0) {
-            response.status(200).json(returnAllUserData(userData));
-        }
+        response.status(200).json(returnAllUserData(userData));
+    } catch (error: any) {
+        console.error("\x1b[31m", 'auth-controller => getAllUser : ' + error.message, "\x1b[0m");
+        next(error);
+    }
+}
 
-        response.status(200).json(returnUserData(userData));
+// #=======================================================================================#
+// #			                       delete User                                         #
+// #=======================================================================================#
+export const deleteUser = async (request: Request, response: Response, next: NextFunction) => {
+    try {
+        validateRequest(request)
+        const userData = await User.findByIdAndDelete(request.params.id).select(unreturnedData);
+        if (!userData) throw new HttpError(`No user with this id = ${request.params.id}`, 404)
+
+        response.status(200).json({message:'user deleted successfully'});
     } catch (error: any) {
         console.error("\x1b[31m", 'auth-controller => getAllUser : ' + error.message, "\x1b[0m");
         next(error);

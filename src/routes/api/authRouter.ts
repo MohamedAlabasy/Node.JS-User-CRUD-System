@@ -1,11 +1,12 @@
 import { Router } from 'express';
 import { body, check, param } from 'express-validator';
-import { login, register, getUserByID, getAllUser } from '../../controllers/authController';
+import { login, register, getUserByID, getAllUser,deleteUser } from '../../controllers/authController';
 import checkTokens from '../../utilities/checkTokens';
 
 const auth: Router = Router();
 auth.get('', checkTokens, getAllUser)
 auth.get('/:id', checkTokens, checkID(), getUserByID)
+auth.delete('/:id', checkTokens, checkID(), deleteUser)
 auth.post('/login', checkEmail(), checkPassword(), login);
 auth.post('/register', checkEmail(), checkPassword(), checkRegisterData(), register);
 
