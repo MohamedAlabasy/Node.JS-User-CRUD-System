@@ -1,7 +1,7 @@
 {
   "name": "node.js-user-crud-system",
   "version": "1.0.0",
-  "description": "",
+  "description": "Create routes for adding, retrieving, updating, and deleting users",
   "main": "index.js",
   "scripts": {
     "build": "tsc",
@@ -11,9 +11,17 @@
     "test": "npm run build && npm run jasmine",
     "start": "nodemon src/index.ts"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MohamedAlabasy/Node.JS-User-CRUD-System.git"
+  },
   "keywords": [],
-  "author": "",
+  "author": "Mohamed Alabasy <eng.mohamed.alabasy@gmail.com> (https://www.linkedin.com/in/mohamed-alabasy/)",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MohamedAlabasy/Node.JS-User-CRUD-System/issues"
+  },
+  "homepage": "https://github.com/MohamedAlabasy/Node.JS-User-CRUD-System#readme",
   "devDependencies": {
     "@types/bcryptjs": "^2.4.6",
     "@types/body-parser": "^1.19.5",
