@@ -1,0 +1,969 @@
+{
+	"info": {
+		"_postman_id": "ae6e7cf3-681f-44a4-9a85-9fa22f43a72a",
+		"name": "User-CRUD-System",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29635959"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"mohamed alabasy\",\r\n    \"email\": \"eng.mohamed.alabasy@email.com\",\r\n    \"password\": \"Password22+\",\r\n    \"age\": 26,\r\n    \"country\": \"egypt\",\r\n    \"mobile\": \"98610589069\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/user/register",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"user",
+								"register"
+							]
+						},
+						"description": "This endpoint allows you to register a new user. You need to provide the user's name, email, password, age, country, and mobile number in the request body.\n\n### Request Body\n\n- `name` (string): The name of the user.\n- `email` (string): The email address of the user.\n- `password` (string): The password for the user account.\n- `age` (number): The age of the user.\n- `country` (string): The country of the user.\n- `mobile` (string): The mobile number of the user.\n    \n\n### Response\n\nUpon a successful registration, the response will include the newly created user's details, such as:\n\n- `id` (string): The unique identifier for the user.\n- `name` (string): The name of the user.\n- `email` (string): The email address of the user.\n- `age` (number): The age of the user.\n- `country` (string): The country of the user.\n- `mobile` (string): The mobile number of the user."
+					},
+					"response": [
+						{
+							"name": "Register",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"mohamed alabasy\",\r\n    \"email\": \"eng.mohamed.alabasy@email.com\",\r\n    \"password\": \"Password22+\",\r\n    \"age\": 26,\r\n    \"country\": \"egypt\",\r\n    \"mobile\": \"98610589069\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "add your url/user/register",
+									"host": [
+										"add your url"
+									],
+									"path": [
+										"user",
+										"register"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "148"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"94-i2bstk1qstnGNdlpjfPT2EQINLI\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 29 Jan 2024 20:50:27 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"65b80f936d85d036da6325d2\",\n    \"name\": \"mohamed alabasy\",\n    \"email\": \"eng.mohamed.alabasy@email.com\",\n    \"age\": 26,\n    \"country\": \"egypt\",\n    \"mobile\": \"98610589069\"\n}"
+						}
+					]
+				},
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"eng.mohamed.alabasy@email.com\",\r\n    \"password\": \"Password22+\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/user/login",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"user",
+								"login"
+							]
+						},
+						"description": "The `POST /user/login` endpoint is used to authenticate and login a user. The request should include a JSON payload in the raw request body type with the user's email and password.\n\n### Request Body\n\n- email (string, required): The email of the user.\n- password (string, required): The password for the user's account.\n    \n\n### Response\n\nUpon a successful login, the endpoint returns a JSON object with the following fields:\n\n- id (string): The unique identifier of the user.\n- name (string): The name of the user.\n- email (string): The email address of the user.\n- age (number): The age of the user.\n- country (string): The country of the user.\n- mobile (string): The mobile number of the user.\n- token (string): The authentication token for the user's session.\n    \n\nIn case of a failed login attempt, appropriate error messages will be returned.\n\n### Example\n\nRequest:\n\n``` json\n{\n  \"email\": \"user@example.com\",\n  \"password\": \"********\"\n}\n\n ```\n\nResponse:\n\n``` json\n{\n  \"id\": \"********\",\n  \"name\": \"John Doe\",\n  \"email\": \"user@example.com\",\n  \"age\": 30,\n  \"country\": \"Country\",\n  \"mobile\": \"********\",\n  \"token\": \"********\"\n}\n\n ```"
+					},
+					"response": [
+						{
+							"name": "login",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"eng.mohamed.alabasy@email.com\",\r\n    \"password\": \"Password22+\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "add your url/user/login",
+									"host": [
+										"add your url"
+									],
+									"path": [
+										"user",
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "383"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"17f-qZ4NfdwEHnSeG4KpoTcaYUJyq5Q\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 29 Jan 2024 20:51:04 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"65b80f936d85d036da6325d2\",\n    \"name\": \"mohamed alabasy\",\n    \"email\": \"eng.mohamed.alabasy@email.com\",\n    \"age\": 26,\n    \"country\": \"egypt\",\n    \"mobile\": \"98610589069\",\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YjgwZjkzNmQ4NWQwMzZkYTYzMjVkMiIsImVtYWlsIjoiZW5nLm1vaGFtZWQuYWxhYmFzeUBlbWFpbC5jb20iLCJpYXQiOjE3MDY1NjE0NjQsImV4cCI6MTcwNjY0Nzg2NH0.Buld5v8fw_9eF_A6RLi_4oiwj7KXULBqW5n82en8JJ0\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "update user to be Admin",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"is_admin\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL}}/user/admin/:id",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"user",
+						"admin",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "65b80fca6d85d036da6325d6"
+						}
+					]
+				},
+				"description": "This endpoint allows you to update the admin status of a user with the specified ID. The HTTP PATCH request should be made to {{URL}}/user/admin/:id with the following payload in the raw request body:\n\n``` json\n{\n  \"is_admin\": true\n}\n\n ```\n\n### Response\n\nThe response will include the updated user information with the following fields:\n\n- id (string): The user's ID\n- name (string): The user's name\n- email (string): The user's email\n- age (number): The user's age\n- country (string): The user's country\n- mobile (string): The user's mobile number\n- is_admin (boolean): The updated admin status\n- token (string): The user's token"
+			},
+			"response": [
+				{
+					"name": "Forbidden update",
+					"originalRequest": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "add your url/user/admin/:id",
+							"host": [
+								"add your url"
+							],
+							"path": [
+								"user",
+								"admin",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "65b80fca6d85d036da6325d6"
+								}
+							]
+						}
+					},
+					"status": "Forbidden",
+					"code": 403,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "43"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"2b-bYpBX8h5pg0MKY+pFQ7dN/e3oY8\""
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 29 Jan 2024 21:34:16 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": 0,\n    \"error\": \"you must be an admin\"\n}"
+				},
+				{
+					"name": "update user to be Admin",
+					"originalRequest": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"is_admin\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/user/admin/:id",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"user",
+								"admin",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "65b80fca6d85d036da6325d6"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "384"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"180-zKEDx1ziW1c25rluEvEux/jIIos\""
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 29 Jan 2024 21:38:38 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": \"65b80fca6d85d036da6325d6\",\n    \"name\": \"mohamed\",\n    \"email\": \"mohamed@email.com\",\n    \"age\": 26,\n    \"country\": \"egypt\",\n    \"mobile\": \"98610589069\",\n    \"is_admin\": true,\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YjgwZmNhNmQ4NWQwMzZkYTYzMjVkNiIsImVtYWlsIjoibW9oYW1lZEBlbWFpbC5jb20iLCJpc19hZG1pbiI6dHJ1ZSwiaWF0IjoxNzA2NTY0MzE4LCJleHAiOjE3MDY2NTA3MTh9.8LRCxN8Hb_ehYA0uD5uznwv2hQuYwlG7yK2wPYoiaRc\"\n}"
+				}
+			]
+		},
+		{
+			"name": "get all users",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}/user",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"user"
+					]
+				},
+				"description": "This endpoint retrieves user information. The response will include an array of user objects, where each object contains the user's ID, name, email, age, country, mobile number, and admin status."
+			},
+			"response": [
+				{
+					"name": "empty data",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "add your url/user",
+							"host": [
+								"add your url"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "2"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"2-l9Fw4VUO7kr8CvBlt4zaMCqXZ0w\""
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 29 Jan 2024 20:49:11 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "[]"
+				},
+				{
+					"name": "get all users",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/user",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "457"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"1c9-rtRvRYRWQxDDvpXlsQCRfSFEIsM\""
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 29 Jan 2024 21:38:10 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"id\": \"65b80f936d85d036da6325d2\",\n        \"name\": \"mohamed alabasy\",\n        \"email\": \"eng.mohamed.alabasy@email.com\",\n        \"age\": 29,\n        \"country\": \"egypt\",\n        \"mobile\": \"98610589069\",\n        \"is_admin\": true\n    },\n    {\n        \"id\": \"65b80fca6d85d036da6325d6\",\n        \"name\": \"mohamed\",\n        \"email\": \"mohamed@email.com\",\n        \"age\": 26,\n        \"country\": \"egypt\",\n        \"mobile\": \"98610589069\",\n        \"is_admin\": true\n    },\n    {\n        \"id\": \"65b80fd66d85d036da6325d8\",\n        \"name\": \"alabasy\",\n        \"email\": \"alabasy@email.com\",\n        \"age\": 30,\n        \"country\": \"egypt\",\n        \"mobile\": \"98610589069\",\n        \"is_admin\": false\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "get user by ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}/user/:id",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"user",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "65b80f936d85d036da6325d2"
+						}
+					]
+				},
+				"description": "This endpoint retrieves user information based on the provided user ID. The response will include the user's ID, name, email, age, country, mobile number, and an indication of whether the user is an admin."
+			},
+			"response": [
+				{
+					"name": "not found",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "add your url/user/:id",
+							"host": [
+								"add your url"
+							],
+							"path": [
+								"user",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "65b7f4885fc63ea7b0e13bc1"
+								}
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "70"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"46-9RIGrPAy88t0Y659ynSwD66VbHM\""
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 29 Jan 2024 20:49:23 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": 0,\n    \"error\": \"No user with this id = 65b7f4885fc63ea7b0e13bc1\"\n}"
+				},
+				{
+					"name": "get user by ID",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/user/:id",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"user",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "65b80f936d85d036da6325d2"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "164"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"a4-6h0tFzfUBIFsQZJI6ylAFxXjnrs\""
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 29 Jan 2024 21:38:24 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": \"65b80f936d85d036da6325d2\",\n    \"name\": \"mohamed alabasy\",\n    \"email\": \"eng.mohamed.alabasy@email.com\",\n    \"age\": 29,\n    \"country\": \"egypt\",\n    \"mobile\": \"98610589069\",\n    \"is_admin\": true\n}"
+				}
+			]
+		},
+		{
+			"name": "update user by ID",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"mohamed alabasy\",\r\n    \"email\": \"eng.mohamed.alabasy@email.com\",\r\n    \"age\": 29,\r\n    \"country\": \"egypt\",\r\n    \"mobile\": \"98610589069\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL}}/user/:id",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"user",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "65b80f936d85d036da6325d2"
+						}
+					]
+				},
+				"description": "This endpoint is used to update user information by making an HTTP PATCH request to /user/:id. The request should include a JSON payload in the raw request body type, with fields for name, email, age, country, and mobile. The response will include the updated user information along with a token.\n\n### Request Body\n\n- name (string): The name of the user.\n- email (string): The email address of the user.\n- age (number): The age of the user.\n- country (string): The country of the user.\n- mobile (string): The mobile number of the user.\n    \n\n### Response\n\n- id (string): The unique identifier of the user.\n- name (string): The updated name of the user.\n- email (string): The updated email address of the user.\n- age (number): The updated age of the user.\n- country (string): The updated country of the user.\n- mobile (string): The updated mobile number of the user.\n- token (string): The token associated with the user."
+			},
+			"response": [
+				{
+					"name": "Forbidden update",
+					"originalRequest": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"mohamed alabasy\",\r\n    \"email\": \"eng.mohamed.alabasy@email.com\",\r\n    \"age\": 29,\r\n    \"country\": \"egypt\",\r\n    \"mobile\": \"98610589069\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "add your url/user/:id",
+							"host": [
+								"add your url"
+							],
+							"path": [
+								"user",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "65b80f936d85d036da6325d2"
+								}
+							]
+						}
+					},
+					"status": "Forbidden",
+					"code": 403,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "54"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"36-V5PJ4BXuLE4Wnoj10SM2eYlWKZw\""
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 29 Jan 2024 21:27:15 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": 0,\n    \"error\": \"you can't update this user data\"\n}"
+				},
+				{
+					"name": "update user by ID",
+					"originalRequest": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"mohamed alabasy\",\r\n    \"email\": \"eng.mohamed.alabasy@email.com\",\r\n    \"age\": 29,\r\n    \"country\": \"egypt\",\r\n    \"mobile\": \"98610589069\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/user/:id",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"user",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "65b80f936d85d036da6325d2"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "406"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"196-chIq9xB7iuP7F827yLztxL7fw5A\""
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 29 Jan 2024 21:27:35 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": \"65b80f936d85d036da6325d2\",\n    \"name\": \"mohamed alabasy\",\n    \"email\": \"eng.mohamed.alabasy@email.com\",\n    \"age\": 29,\n    \"country\": \"egypt\",\n    \"mobile\": \"98610589069\",\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YjgwZjkzNmQ4NWQwMzZkYTYzMjVkMiIsImVtYWlsIjoiZW5nLm1vaGFtZWQuYWxhYmFzeUBlbWFpbC5jb20iLCJpc19hZG1pbiI6ZmFsc2UsImlhdCI6MTcwNjU2MzY1NSwiZXhwIjoxNzA2NjUwMDU1fQ.okSwjjeOi3SGVK41DQ7APTDJgw9xc_7hNx21MZUKDMA\"\n}"
+				}
+			]
+		},
+		{
+			"name": "delete user by ID",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}/user/:id",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"user",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "65b7f4885fc63ea7b0e13bc1"
+						}
+					]
+				},
+				"description": "This endpoint sends an HTTP DELETE request to delete a user with the specified ID. Upon successful deletion, the response will include a message indicating the success of the operation."
+			},
+			"response": [
+				{
+					"name": "delete user by ID",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "add your url/user/:id",
+							"host": [
+								"add your url"
+							],
+							"path": [
+								"user",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "65b7f4885fc63ea7b0e13bc1"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "39"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"27-uqa3nGCt3cW1jftCW3HhGBY+m3U\""
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 29 Jan 2024 20:47:47 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"user deleted successfully\"\n}"
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{TOKEN}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "URL",
+			"value": "add your url",
+			"type": "string"
+		},
+		{
+			"key": "TOKEN",
+			"value": "add your token",
+			"type": "string"
+		}
+	]
+}
