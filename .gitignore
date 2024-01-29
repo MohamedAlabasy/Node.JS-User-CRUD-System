@@ -142,6 +142,5 @@ dist
 # except avatar image
 !avatar.png
 
-
-# add database.json
-# database.json
+# package-lock
+package-lock.json
