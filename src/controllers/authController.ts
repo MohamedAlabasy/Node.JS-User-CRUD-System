@@ -1,10 +1,9 @@
 import { Request, Response, NextFunction } from 'express';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-
-import validateRequest from '../utilities/validateRequest';
 import User from '../models/userSchema';
 import { HttpError } from '../utilities/HttpError';
+import validateRequest from '../utilities/validateRequest';
 
 const unreturnedData = "-createdAt -updatedAt -__v";
 // #=======================================================================================#
@@ -20,9 +19,7 @@ export const login = async (request: Request, response: Response, next: NextFunc
         if (!passwordIsValid) throw new HttpError(`invalid password`, 401)
 
         // add token
-        const accessToken = jwt.sign({ id: userData._id, email: userData.email, is_admin: userData.is_admin }, process.env.ACCESS_TOKEN_SECRET as string, {
-            expiresIn: 86400 //for 24 hour
-        });
+        const accessToken = createToken(userData)
 
         // add token to db
         response.status(200).json(returnUserData(userData, accessToken))
@@ -72,7 +69,7 @@ export const getUserByID = async (request: Request, response: Response, next: Ne
 
         response.status(200).json(returnUserData(userData));
     } catch (error: any) {
-        console.error("\x1b[31m", 'auth-controller => getUserDataByID : ' + error.message, "\x1b[0m");
+        console.error("\x1b[31m", 'auth-controller => getUserByID : ' + error.message, "\x1b[0m");
         next(error);
     }
 }
@@ -92,6 +89,41 @@ export const getAllUser = async (request: Request, response: Response, next: Nex
 }
 
 // #=======================================================================================#
+// #			                        update Users                                       #
+// #=======================================================================================#
+export const updateUser = async (request: Request, response: Response, next: NextFunction) => {
+    try {
+        validateRequest(request)
+        if ((request as any).user.id !== request.params.id) throw new HttpError('you can\'t update this user data', 403)
+
+        const user = await User.findById(request.params.id).select(unreturnedData)
+        if (!user) throw new HttpError(`No user with this id = ${request.params.id}`, 404)
+
+        const userRequestData = {
+            name: request?.body?.name,
+            email: request?.body?.email,
+            password: request?.body?.password ? hashPassword(request.body.password) : undefined,
+            age: request?.body?.age,
+            country: request?.body?.country,
+            mobile: request?.body?.mobile,
+            is_admin: (request as any).user.is_admin,
+        }
+
+        const UpdateUserData = await User.findByIdAndUpdate(request.params.id, userRequestData, { new: true }).select(unreturnedData);
+        if (!UpdateUserData) throw new HttpError('can\'t update user', 500)
+
+        // add token
+        const accessToken = createToken(UpdateUserData)
+
+        response.status(200).json(returnUserData(UpdateUserData, accessToken));
+    } catch (error: any) {
+        if (error.code === 11000) error.message = 'this email already used'
+        console.error("\x1b[31m", 'auth-controller => updateUser : ' + error.message, "\x1b[0m");
+        next(error);
+    }
+}
+
+// #=======================================================================================#
 // #			                       delete User                                         #
 // #=======================================================================================#
 export const deleteUser = async (request: Request, response: Response, next: NextFunction) => {
@@ -100,7 +132,7 @@ export const deleteUser = async (request: Request, response: Response, next: Nex
         const userData = await User.findByIdAndDelete(request.params.id).select(unreturnedData);
         if (!userData) throw new HttpError(`No user with this id = ${request.params.id}`, 404)
 
-        response.status(200).json({message:'user deleted successfully'});
+        response.status(200).json({ message: 'user deleted successfully' });
     } catch (error: any) {
         console.error("\x1b[31m", 'auth-controller => getAllUser : ' + error.message, "\x1b[0m");
         next(error);
@@ -110,6 +142,12 @@ export const deleteUser = async (request: Request, response: Response, next: Nex
 // #=======================================================================================#
 // #			                          general fun                                      #
 // #=======================================================================================#
+function createToken(userData: any) {
+    return jwt.sign({ id: userData._id, email: userData.email, is_admin: userData.is_admin || false }, process.env.ACCESS_TOKEN_SECRET as string, {
+        expiresIn: 86400 //for 24 hour
+    })
+}
+
 function hashPassword(password: string): string {
     return bcrypt.hashSync(password, 10);
 }

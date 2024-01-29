@@ -1,14 +1,16 @@
 import { Router } from 'express';
-import { body, check, param } from 'express-validator';
-import { login, register, getUserByID, getAllUser,deleteUser } from '../../controllers/authController';
 import checkTokens from '../../utilities/checkTokens';
+import { body, check, param } from 'express-validator';
+import { login, register, getUserByID, getAllUser, updateUser, deleteUser } from '../../controllers/authController';
 
 const auth: Router = Router();
-auth.get('', checkTokens, getAllUser)
-auth.get('/:id', checkTokens, checkID(), getUserByID)
-auth.delete('/:id', checkTokens, checkID(), deleteUser)
+
 auth.post('/login', checkEmail(), checkPassword(), login);
 auth.post('/register', checkEmail(), checkPassword(), checkRegisterData(), register);
+auth.get('', checkTokens, getAllUser)
+auth.get('/:id', checkTokens, checkID(), getUserByID)
+auth.patch('/:id', checkTokens, checkUpdateData(), updateUser)
+auth.delete('/:id', checkTokens, checkID(), deleteUser)
 
 // #=======================================================================================#
 // #			                         check function                                    #
@@ -45,6 +47,20 @@ function checkRegisterData() {
         body('mobile')
             .exists().withMessage('you must enter mobile')
             .isString().isLength({ min: 11, max: 11 }).withMessage('mobile length must be 11 number')
+            .matches(/^[90][0-9]{2}[12][0-9]{2}[0-9]{5}$/).withMessage('invalid mobile number'),
+    ]
+}
+
+function checkUpdateData() {
+    return [
+        body('name')
+            .optional().isString().withMessage('invalid name'),
+        body('age')
+            .optional().isFloat({ min: 20, max: 100 }).withMessage('age must be a number between 20 and 100'),
+        body('country')
+            .optional().isString().withMessage('invalid country'),
+        body('mobile')
+            .optional().isString().isLength({ min: 11, max: 11 }).withMessage('mobile length must be 11 number')
             .matches(/^[90][0-9]{2}[12][0-9]{2}[0-9]{5}$/).withMessage('invalid mobile number'),
     ]
 }
