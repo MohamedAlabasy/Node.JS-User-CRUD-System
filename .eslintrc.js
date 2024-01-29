@@ -18,6 +18,6 @@ module.exports = {
         "prettier"
     ],
     "rules": {
-        "prettier/prettier": 1
+        "prettier/prettier":1
     }
 }
